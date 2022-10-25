@@ -12,33 +12,24 @@ class Bootloader extends Phaser.Scene{
     preload() {
         this.load.path = './assets/';
         this.load.image(['yoshif', 'yoshi']);
-        // this.load.image('huesito', 'bone.png');
+        this.load.image('samurai', 'Samurai.png');
     }
 
     create() {
-        this.javier = this.physics.add.image(100, 100, 'yoshi');
-        this.javier.body.setMass(1);
+        this.javier = this.physics.add.image(100, 100, 'samurai').setScale(0.2);
+        this.javier.body.setSize(200, 500);
+        this.javier.body.setOffset(180,0);
+        // this.javier.body.setMass(1);
         this.obstaculo1 = this.physics.add.image(300, 100, 'yoshif');
+        // this.obstaculo1.body.setOffset(400);
 
         //Colisiones con los limites del mundo
         this.javier.body.setCollideWorldBounds(true);
         this.obstaculo1.body.setCollideWorldBounds(true);
 
-        //Movimientos
-        //Derecha
+        //Teclado
         this.cursors = this.input.keyboard.createCursorKeys();
-        // this.cursor.right.on('down', () => {
-        // this.javier.body.setAccelerationX(50);
-        // });
-        // //Izq
-        // this.cursor = this.input.keyboard.createCursorKeys();
-        // this.cursor.left.on('down', () => {
-        // this.javier.body.setAccelerationX(-50);
-        // });
-        // //Salto
-        // this.cursor.up.on('down', () => {
-        //     this.javier.body.setVelocityY(-500);
-        // });
+     
 
         //Choque con Plataforma
         this.physics.add.collider(this.javier, this.obstaculo1, () => {
@@ -50,6 +41,8 @@ class Bootloader extends Phaser.Scene{
 
     update(time, delta) {
         // console.log(this.javier.body.onFloor());
+
+        //Movimientos
         if (this.cursors.left.isDown)
         {
             this.javier.setVelocityX(-160);
@@ -69,7 +62,7 @@ class Bootloader extends Phaser.Scene{
 
         if (this.cursors.up.isDown && this.javier.body.onFloor())
         {
-            this.javier.setVelocityY(-330);
+            this.javier.setVelocityY(-400);
         }
         }
 }
