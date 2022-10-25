@@ -12,7 +12,7 @@ class Bootloader extends Phaser.Scene{
     preload() {
         this.load.path = './assets/';
         this.load.image(['yoshif', 'yoshi']);
-        this.load.image('samurai', 'Samurai.png');
+        this.load.image('samurai', 'ninja.png');
     }
 
     create() {
