@@ -12,55 +12,66 @@ class Bootloader extends Phaser.Scene{
     preload() {
         this.load.path = './assets/';
         this.load.image(['yoshif', 'yoshi']);
+        // this.load.image('huesito', 'bone.png');
     }
 
     create() {
-        this.yoshi = this.physics.add.image(100, 100, 'yoshi');
-        this.yoshi.body.setMass(1);
-        this.yoshi_malvado = this.add.image(300, 100, 'yoshif');
-        // this.physics.add.existing(this.yoshi_malvado);
-        this.physics.add.existing(this.yoshi_malvado, false );
+        this.javier = this.physics.add.image(100, 100, 'yoshi');
+        this.javier.body.setMass(1);
+        this.obstaculo1 = this.physics.add.image(300, 100, 'yoshif');
 
-        // this.yoshi.setMaxVelocity(100, 800);
-        this.yoshi.body.maxVelocity.x = 100;
+        //Colisiones con los limites del mundo
+        this.javier.body.setCollideWorldBounds(true);
+        this.obstaculo1.body.setCollideWorldBounds(true);
 
-        //IMPORTANTE LEER ESTE
-        console.log(this.yoshi_malvado.body);
+        //Movimientos
+        //Derecha
+        this.cursors = this.input.keyboard.createCursorKeys();
+        // this.cursor.right.on('down', () => {
+        // this.javier.body.setAccelerationX(50);
+        // });
+        // //Izq
+        // this.cursor = this.input.keyboard.createCursorKeys();
+        // this.cursor.left.on('down', () => {
+        // this.javier.body.setAccelerationX(-50);
+        // });
+        // //Salto
+        // this.cursor.up.on('down', () => {
+        //     this.javier.body.setVelocityY(-500);
+        // });
 
-        this.yoshi.body.setCollideWorldBounds(true);
-        this.yoshi_malvado.body.setCollideWorldBounds(true);
-
-        this.cursor = this.input.keyboard.createCursorKeys();
-        this.cursor.right.on('down', () => {
-        // this.yoshi.body.setAcceleration(800); //Progresivo
-        // this.yoshi.body.setVelocity(800);   //Inmediato
-        this.yoshi.body.setVelocityX(800);
-        });
-        // Tambien puedes usar
-        // setAcelerationX()
-        // setAcelerationY()
-        // setVelocityX()
-        // setVelocityY()
-
-        this.cursor.up.on('down', () => {
-            this.yoshi.body.setVelocityY(-800);
-        });
-
-        // this.physics.add.collider(this.yoshi, this.yoshi_malvado);
-        this.physics.add.collider(this.yoshi, this.yoshi_malvado, () => {
-            this.yoshi.setVelocity(0);
-            this.yoshi.setAcceleration(0);
+        //Choque con Plataforma
+        this.physics.add.collider(this.javier, this.obstaculo1, () => {
+            this.javier.setVelocity(0);
+            this.javier.setAcceleration(0);
         });
 
-        this.yoshi.body.setCircle(40);
-        this.yoshi_malvado.body.setSize(30, 30);
-        this.yoshi_malvado.body.setOffset(10, 50); //Donde se coloca el colisionador/body
-        this.yoshi.body.setBounce(0.2);
     }
 
     update(time, delta) {
-        
-    }
+        // console.log(this.javier.body.onFloor());
+        if (this.cursors.left.isDown)
+        {
+            this.javier.setVelocityX(-160);
+
+            this.javier.flipX=1;
+        }
+        else if (this.cursors.right.isDown)
+        {
+            this.javier.setVelocityX(160);
+
+            this.javier.flipX=0;
+        }
+        else
+        {
+            this.javier.setVelocityX(0);
+        }
+
+        if (this.cursors.up.isDown && this.javier.body.onFloor())
+        {
+            this.javier.setVelocityY(-330);
+        }
+        }
 }
 
 export default Bootloader;
