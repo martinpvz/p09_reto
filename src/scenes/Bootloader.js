@@ -11,13 +11,30 @@ class Bootloader extends Phaser.Scene{
     
     preload() {
         this.load.path = './assets/';
-        this.load.image(['yoshif', 'yoshi', 'barraArriba1', 'barraArriba2', 'barraArriba3', 'barraArriba4', 'barraPuerta', 'puerta', 'barraCF1', 'barraCF2', 'cuerda', 'torre1', 'torre2', 'torre3', 'torre4', 'torre5', 'barraElevador', 'picos', 'barraTiempo', 'escalar', 'barraDiagonal', 'escalera']);
+        this.load.image(['barraArriba1', 'barraArriba2', 'barraArriba3', 'barraArriba4', 'barraPuerta', 'puerta', 'barraCF1', 'barraCF2', 'cuerda', 'torre1', 'torre2', 'torre3', 'torre4', 'torre5', 'barraElevador', 'picos', 'barraTiempo', 'escalar', 'barraDiagonal', 'escalera', 'ninja']);
     }
 
     create() {
-        this.yoshi = this.physics.add.image(100, 100, 'yoshi');
-        this.yoshi.body.setMass(1);
-        this.yoshi_malvado = this.add.image(300, 100, 'yoshif');
+        this.javier = this.physics.add.image(50, 100, 'ninja').setScale(0.2);
+        this.javier.body.setSize(200, 500);
+        this.javier.body.setOffset(180,0);
+        // this.javier.body.setMass(1);
+        // this.obstaculo1 = this.physics.add.image(300, 100, 'yoshif');
+        // this.obstaculo1.body.setOffset(400);
+
+        //Colisiones con los limites del mundo
+        this.javier.body.setCollideWorldBounds(true);
+        // this.obstaculo1.body.setCollideWorldBounds(true);
+
+        //Teclado
+        this.cursors = this.input.keyboard.createCursorKeys();
+     
+
+        //Choque con Plataforma
+        this.physics.add.collider(this.javier, this.obstaculo1, () => {
+            this.javier.setVelocity(0);
+            this.javier.setAcceleration(0);
+        });
         this.barraArriba = this.add.image(160, 170, 'barraArriba1');
         this.barraArriba.setScale(0.3)
         this.barraArriba2 = this.add.image(430, 170, 'barraArriba2');
@@ -71,7 +88,6 @@ class Bootloader extends Phaser.Scene{
         // this.yoshi_malvado = this.add.image(300, 100, 'yoshif');
         // this.yoshi_malvado = this.add.image(300, 100, 'yoshif');
         // this.physics.add.existing(this.yoshi_malvado);
-        this.physics.add.existing(this.yoshi_malvado, false );
         this.physics.add.existing(this.escalar, true );
         this.physics.add.existing(this.barraArriba, true );
         this.physics.add.existing(this.barraArriba2, true );
@@ -96,33 +112,8 @@ class Bootloader extends Phaser.Scene{
         this.physics.add.existing(this.barraDiagonal, true );
         this.physics.add.existing(this.puerta, true );
         this.physics.add.existing(this.barraPuerta, true );
-        this.load.image(['yoshif', 'yoshi']);
-        this.load.image('samurai', 'ninja.png');
     }
 
-    create() {
-        this.javier = this.physics.add.image(100, 100, 'samurai').setScale(0.2);
-        this.javier.body.setSize(200, 500);
-        this.javier.body.setOffset(180,0);
-        // this.javier.body.setMass(1);
-        this.obstaculo1 = this.physics.add.image(300, 100, 'yoshif');
-        // this.obstaculo1.body.setOffset(400);
-
-        //Colisiones con los limites del mundo
-        this.javier.body.setCollideWorldBounds(true);
-        this.obstaculo1.body.setCollideWorldBounds(true);
-
-        //Teclado
-        this.cursors = this.input.keyboard.createCursorKeys();
-     
-
-        //Choque con Plataforma
-        this.physics.add.collider(this.javier, this.obstaculo1, () => {
-            this.javier.setVelocity(0);
-            this.javier.setAcceleration(0);
-        });
-
-    }
 
     update(time, delta) {
         // console.log(this.javier.body.onFloor());
@@ -149,7 +140,7 @@ class Bootloader extends Phaser.Scene{
         {
             this.javier.setVelocityY(-400);
         }
-        }
+    }
 }
 
 export default Bootloader;
