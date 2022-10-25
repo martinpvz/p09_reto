@@ -18,7 +18,7 @@ class Bootloader extends Phaser.Scene{
         this.javier = this.physics.add.image(50, 100, 'ninja').setScale(0.2);
         this.javier.body.setSize(200, 500);
         this.javier.body.setOffset(180,0);
-        // this.javier.body.setMass(1);
+        this.javier.body.setMass(1);
         // this.obstaculo1 = this.physics.add.image(300, 100, 'yoshif');
         // this.obstaculo1.body.setOffset(400);
 
@@ -31,10 +31,11 @@ class Bootloader extends Phaser.Scene{
      
 
         //Choque con Plataforma
-        this.physics.add.collider(this.javier, this.obstaculo1, () => {
-            this.javier.setVelocity(0);
-            this.javier.setAcceleration(0);
-        });
+        // this.physics.add.collider(this.javier, this.obstaculo1, () => {
+        //     this.javier.setVelocity(0);
+        //     this.javier.setAcceleration(0);
+        // });
+
         this.barraArriba = this.add.image(160, 170, 'barraArriba1');
         this.barraArriba.setScale(0.3)
         this.barraArriba2 = this.add.image(430, 170, 'barraArriba2');
@@ -64,25 +65,25 @@ class Bootloader extends Phaser.Scene{
         this.torre4 = this.add.image(600, 675, 'torre4');
         this.torre4.setScale(0.3)
         this.torre5 = this.add.image(780, 675, 'torre5');
-        this.torre5.setScale(0.3)
+        this.torre5.setScale(0.3);
         this.barraTorre = this.add.image(880, 480, 'barraElevador');
-        this.barraTorre.setScale(0.3)
+        this.barraTorre.setScale(0.3);
         this.picos = this.add.image(1200, 735, 'picos');
-        this.picos.setScale(0.3)
+        this.picos.setScale(0.3);
         this.barraTiempo1 = this.add.image(980, 650, 'barraTiempo');
-        this.barraTiempo1.setScale(0.3)
+        this.barraTiempo1.setScale(0.3);
         this.barraTiempo2 = this.add.image(1120, 600, 'barraTiempo');
-        this.barraTiempo2.setScale(0.3)
+        this.barraTiempo2.setScale(0.3);
         this.barraTiempo3 = this.add.image(1260, 550, 'barraTiempo');
-        this.barraTiempo3.setScale(0.3)
+        this.barraTiempo3.setScale(0.3);
         this.barraTiempo4 = this.add.image(1400, 500, 'barraTiempo');
-        this.barraTiempo4.setScale(0.3)
+        this.barraTiempo4.setScale(0.3);
         this.escalar = this.add.image(1120, 365, 'escalar');
-        this.escalar.setScale(0.3)
+        this.escalar.setScale(0.3);
         this.barraDiagonal = this.add.image(1510, 430, 'barraDiagonal');
-        this.barraDiagonal.setScale(0.3)
+        this.barraDiagonal.setScale(0.3);
         this.escalera = this.add.image(262, 230, 'escalera');
-        this.escalera.setScale(0.3)
+        this.escalera.setScale(0.3);
         //this.yoshi_malvado = this.add.image(300, 100, 'yoshif');
         // this.yoshi_malvado = this.add.image(300, 100, 'yoshif');
         // this.yoshi_malvado = this.add.image(300, 100, 'yoshif');
@@ -108,7 +109,7 @@ class Bootloader extends Phaser.Scene{
         this.physics.add.existing(this.barraCF2, true );
         this.physics.add.existing(this.cuerda, true );
         this.physics.add.existing(this.picos, true );
-        this.physics.add.existing(this.barraElevador, true );
+        this.physics.add.existing(this.barraTorre, true );
         this.physics.add.existing(this.barraDiagonal, true );
         this.physics.add.existing(this.puerta, true );
         this.physics.add.existing(this.barraPuerta, true );
