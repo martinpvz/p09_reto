@@ -21,8 +21,8 @@ class Bootloader extends Phaser.Scene{
         this.javier.body.setMass(1);
 
         this.barraArriba5 = this.add.image(1230, 130, 'barraArriba1').setScale(0.8);
-        this.barraPuerta = this.add.image(1460, 230, 'barraPuerta');
-        this.barraPuerta.setScale(0.3)
+        this.barraPuerta = this.add.image(1460, 200, 'barraPuerta');
+        this.barraPuerta.setScale(0.7)
         this.puerta = this.add.image(1460, 135, 'puerta').setScale(0.8);
         this.barraCF1 = this.add.image(260, 280, 'barraCF2').setScale(0.8);
         this.barraCF2 = this.add.image(780, 280, 'barraCF1').setScale(0.8);
