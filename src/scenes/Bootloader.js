@@ -20,24 +20,25 @@ class Bootloader extends Phaser.Scene{
         this.javier.body.setOffset(180,0);
         this.javier.body.setMass(1);
 
-        this.barraArriba5 = this.add.image(1230, 170, 'barraArriba1');
-        this.barraArriba5.setScale(0.3)
-        this.barraPuerta = this.add.image(1460, 230, 'barraPuerta');
-        this.barraPuerta.setScale(0.3)
+        // this.barraArriba5 = this.add.image(1230, 170, 'barraArriba1');
+        // this.barraArriba5.setScale(0.3)
+        // this.barraPuerta = this.add.image(1460, 230, 'barraPuerta');
+        // this.barraPuerta.setScale(0.3)
         this.puerta = this.add.image(1460, 135, 'puerta');
         this.puerta.setScale(0.4)
-        this.barraCF1 = this.add.image(260, 320, 'barraCF2');
-        this.barraCF1.setScale(0.3)
-        this.barraCF2 = this.add.image(865, 320, 'barraCF1');
-        this.barraCF2.setScale(0.3)
+        // this.barraCF1 = this.add.image(260, 320, 'barraCF2');
+        // this.barraCF1.setScale(0.3)
+        // this.barraCF2 = this.add.image(865, 320, 'barraCF1');
+        // this.barraCF2.setScale(0.3)
         this.cuerda = this.add.image(575, 320, 'cuerda');
         this.cuerda.setScale(0.3);
 
         var torres = this.physics.add.staticGroup();
         var barraTiempo = this.physics.add.staticGroup();
         var barraTorre = this.physics.add.staticGroup();
-        var barrasArriba = this.physics.add.staticGroup()
-        var barrasHielo = this.physics.add.staticGroup()
+        var barrasArriba = this.physics.add.staticGroup();
+        var barrasHielo = this.physics.add.staticGroup();
+        var barrasCuerda = this.physics.add.staticGroup();
 
         torres.create(150, 715, 'torre1').setScale(0.2).refreshBody();
         torres.create(300, 715, 'torre2').setScale(0.2).refreshBody();
@@ -54,9 +55,14 @@ class Bootloader extends Phaser.Scene{
 
         barrasArriba.create(160,170, 'barraArriba1').setScale(0.3).refreshBody()
         barrasArriba.create(430,170, 'barraArriba2').setScale(0.3).refreshBody()
+        barrasArriba.create(1460,230, 'barraPuerta').setScale(0.3).refreshBody()
+        barrasArriba.create(1230,170, 'barraArriba1').setScale(0.3).refreshBody()
 
         barrasHielo.create(740,170, 'barraArriba3').setScale(0.3).refreshBody()
         barrasHielo.create(1000,170, 'barraArriba4').setScale(0.3).refreshBody()
+
+        barrasCuerda.create(865,320, 'barraCF1').setScale(0.3).refreshBody()
+        barrasCuerda.create(260,320, 'barraCF2').setScale(0.3).refreshBody()
 
         this.picos = this.add.image(1200, 735, 'picos');
         this.picos.setScale(0.3);
@@ -80,16 +86,16 @@ class Bootloader extends Phaser.Scene{
         //this.physics.add.existing(this.barraArriba2, true );
         //this.physics.add.existing(this.barraArriba3, true );
         //this.physics.add.existing(this.barraArriba4, true );
-        this.physics.add.existing(this.barraArriba5, true );
+        // this.physics.add.existing(this.barraArriba5, true );
         this.physics.add.existing(this.escalera, true );
-        this.physics.add.existing(this.barraCF1, true );
-        this.physics.add.existing(this.barraCF2, true );
+        // this.physics.add.existing(this.barraCF1, true );
+        // this.physics.add.existing(this.barraCF2, true );
         this.physics.add.existing(this.cuerda, true );
         this.physics.add.existing(this.picos, true );
         //this.physics.add.existing(this.barraTorre, true );
         this.physics.add.existing(this.barraDiagonal, true );
         this.physics.add.existing(this.puerta, true );
-        this.physics.add.existing(this.barraPuerta, true );
+        // this.physics.add.existing(this.barraPuerta, true );
 
         //Choque con Plataforma
         // this.physics.add.collider(this.javier, this.obstaculo1, () => {
@@ -125,6 +131,14 @@ class Bootloader extends Phaser.Scene{
             this.javier.setAccelerationX(0);
         });
         this.physics.add.collider(this.javier, this.barraPuerta, () => {
+            this.javier.setVelocityX(0);
+            this.javier.setAccelerationX(0);
+        });
+        this.physics.add.collider(this.javier, barrasCuerda, () => {
+            this.javier.setVelocityX(0);
+            this.javier.setAccelerationX(0);
+        });
+        this.physics.add.collider(this.javier, this.cuerda, () => {
             this.javier.setVelocityX(0);
             this.javier.setAccelerationX(0);
         });
