@@ -58,8 +58,8 @@ class Bootloader extends Phaser.Scene{
         
         this.escalar = this.add.image(1120, 365, 'escalar');
         this.escalar.setScale(0.28);
-        this.barraDiagonal = this.add.image(1510, 430, 'barraDiagonal');
-        this.barraDiagonal.setScale(0.3);
+        this.barraDiagonal = this.add.image(1510, 450, 'barraDiagonal');
+        this.barraDiagonal.setScale(0.6);
         this.escalera = this.add.image(265, 190, 'escalera');
 
         //Colisiones con los limites del mundo
