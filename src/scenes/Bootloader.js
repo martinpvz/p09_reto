@@ -15,7 +15,7 @@ class Bootloader extends Phaser.Scene{
     }
 
     create() {
-        this.javier = this.physics.add.image(50, 100, 'ninja').setScale(0.2);
+        this.javier = this.physics.add.image(50, 100, 'ninja').setScale(0.17);
         this.javier.body.setSize(200, 500);
         this.javier.body.setOffset(180,0);
         this.javier.body.setMass(1);
