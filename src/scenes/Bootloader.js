@@ -11,36 +11,32 @@ class Bootloader extends Phaser.Scene{
     
     preload() {
         this.load.path = './assets/';
-        this.load.image(['barraArriba1', 'barraArriba2', 'barraArriba3', 'barraArriba4', 'barraPuerta', 'puerta', 'barraCF1', 'barraCF2', 'cuerda', 'torre1', 'torre2', 'torre3', 'torre4', 'torre5', 'barraElevador', 'picos', 'barraTiempo', 'escalar', 'barraDiagonal', 'escalera', 'ninja','fondo_opc1']);
+        this.load.image(['barraArriba1', 'barraArriba2', 'barraArriba3', 'barraArriba4', 'barraPuerta', 'puerta', 'barraCF1', 'barraCF2', 
+        'cuerda', 'torre1', 'torre2', 'torre3', 'torre4', 'torre5', 'barraElevador', 'picos', 'barraTiempo', 'escalar', 'barraDiagonal', 'escalera', 'ninja','fondo_opc1','coleccionable']);
+        this.load.audio('gong', ['./gong.mp3']);
+        this.load.audio('musicaFondo', ['./musicaFondo.mp3']);
     }
 
     create() {
-        this.fondo = this.add.image(800, 400, 'fondo_opc1').setScale(1.1).setDepth(-3).setAlpha(0.8);
-        this.javier = this.physics.add.image(150, 50, 'ninja').setScale(0.1);
+        //MÚSICA
+        this.gong = this.sound.add('gong',{loop:false});
+        this.musicaFondo = this.sound.add('musicaFondo',{loop:false});
+        this.musicaFondo.play();
+        //FONDO Y SPRITE
+        this.fondo = this.add.image(800, 395, 'fondo_opc1').setScale(1.1).setDepth(-3).setAlpha(0.8);
+        this.javier = this.physics.add.image(50, 700, 'ninja').setScale(0.1);
         this.javier.body.setSize(200, 500);
         this.javier.body.setOffset(180,0);
         this.javier.body.setMass(1);
-
-        //this.barraMovible = this.physics.add.image(900,155, 'barraArriba2').setScale(0.6).refreshBody();
-        // this.barraMovible.setImmovable();
-        // this.barraMovible.body.setAllowGravity(false);
-        // this.add.tween({
-        //     targets: this.barraMovible,
-        //     x: 1200,
-        //     yoyo: true,
-        //     duration: 2000,
-        //     repeat: -1,
-        //     easy: 'Power1',
-        // });
-        // // this.barraArriba5.setScale(0.3)
-        // this.barraPuerta = this.add.image(1460, 230, 'barraPuerta');
-        // this.barraPuerta.setScale(0.3)
-        this.puerta = this.add.image(1460, 135, 'puerta').setScale(0.7);
+        
+        this.puerta = this.physics.add.image(1460, 135, 'puerta').setScale(0.7);
+        this.puerta.body.setAllowGravity(false);
+        this.puerta.body.setImmovable(true);
         // this.barraCF1 = this.add.image(260, 320, 'barraCF2');
         // this.barraCF1.setScale(0.3)
         // this.barraCF2 = this.add.image(865, 320, 'barraCF1');
         // this.barraCF2.setScale(0.3)
-        this.cuerda = this.add.image(500, 340, 'cuerda').setScale(0.8);
+        this.cuerda = this.add.image(500, 334, 'cuerda').setScale(0.8);
 
         var torres = this.physics.add.staticGroup();
         var barraTiempo = this.physics.add.staticGroup();
@@ -81,7 +77,7 @@ class Bootloader extends Phaser.Scene{
         picos.create(660, 760, 'picos').setScale(0.15).setDepth(-1).refreshBody();
         picos.create(1340, 760, 'picos').setScale(0.15).refreshBody();
         picos.create(1690, 760, 'picos').setScale(0.15).refreshBody();
-
+        
         //Colisiones con los limites del mundo
         this.javier.body.setCollideWorldBounds(true);
         this.barraTorre.children.iterate( (torreT) => {
@@ -96,7 +92,7 @@ class Bootloader extends Phaser.Scene{
         this.barraDiagonal = this.add.image(1250, 400, 'barraDiagonal').setScale(0.6);
         this.escalera = this.add.image(300, 215, 'escalera').setScale(0.8);
         //COLECCIONABLE
-        this.objeto = this.physics.add.image(650,100,'barraArriba1').setScale(.3);
+        this.objeto = this.physics.add.image(650,100,'coleccionable').setScale(.3);
         this.objeto.body.setAllowGravity(false);
         this.physics.add.overlap(this.javier, this.objeto, collectObjeto, null, this);
         function collectObjeto (jugador, objeto)
@@ -113,7 +109,7 @@ class Bootloader extends Phaser.Scene{
 
         //Teclado
         this.cursors = this.input.keyboard.createCursorKeys();
-        
+        //FÍSICAS Y COLISIONES
         this.physics.add.existing(this.escalar, true );
         // this.physics.add.existing(this.barraArriba5, true );
         this.physics.add.existing(this.escalera, true );
@@ -129,10 +125,8 @@ class Bootloader extends Phaser.Scene{
         //     this.javier.setVelocity(0);
         //     this.javier.setAcceleration(0);
         // });
-        this.physics.add.collider(this.javier, this.barraMovible, () => {
-            
-        });
         this.physics.add.collider(this.javier, torres);
+
         this.physics.add.collider(this.javier, barraTiempo, () => {
             //algo
         });
@@ -161,7 +155,13 @@ class Bootloader extends Phaser.Scene{
         });
         //Choque con picos
         this.physics.add.collider(this.javier, picos, () => {
+            this.musicaFondo.stop();
             this.scene.restart();
+        });
+        //Choque con puerta
+        this.physics.add.collider(this.javier, this.puerta, () => {
+            //console.log("Llegó a puerta");
+            this.gong.play();
         });
     }
 
