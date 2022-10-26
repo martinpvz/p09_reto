@@ -46,9 +46,9 @@ class Bootloader extends Phaser.Scene{
         torres.create(760, 715, 'torre5').setScale(0.6).refreshBody();
 
         barraTiempo.create(980, 670, 'barraTiempo').refreshBody();
-        barraTiempo.create(1120, 620, 'barraTiempo')//setScale(0.3).refreshBody();
-        barraTiempo.create(1260, 570, 'barraTiempo')//.setScale(0.3).refreshBody();
-        barraTiempo.create(1400, 520, 'barraTiempo')//.setScale(0.3).refreshBody();
+        barraTiempo.create(1120, 620, 'barraTiempo').refreshBody();
+        barraTiempo.create(1260, 570, 'barraTiempo').refreshBody();
+        barraTiempo.create(1400, 520, 'barraTiempo').refreshBody();
 
         barraTorre.create(820, 575, 'barraElevador').setDepth(-1).setScale(0.5).refreshBody();
 
@@ -63,8 +63,11 @@ class Bootloader extends Phaser.Scene{
         barrasCuerda.create(780,280, 'barraCF1').setScale(0.8).refreshBody()
         barrasCuerda.create(260,280, 'barraCF2').setScale(0.8).refreshBody()
 
-        picos.create(1200, 745, 'picos').setScale(0.2).refreshBody();
-        picos.create(480, 820, 'picos').setScale(0.3).refreshBody();
+        picos.create(1000, 760, 'picos').setScale(0.15).refreshBody();
+        picos.create(310, 760, 'picos').setScale(0.15).setDepth(-1).refreshBody();
+        picos.create(660, 760, 'picos').setScale(0.15).setDepth(-1).refreshBody();
+        picos.create(1340, 760, 'picos').setScale(0.15).refreshBody();
+        picos.create(1690, 760, 'picos').setScale(0.15).refreshBody();
 
         //Colisiones con los limites del mundo
         this.javier.body.setCollideWorldBounds(true);
