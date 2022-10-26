@@ -40,10 +40,10 @@ class Bootloader extends Phaser.Scene{
         torres.create(600, 715, 'torre4').setScale(0.6).refreshBody();
         torres.create(760, 715, 'torre5').setScale(0.6).refreshBody();
 
-        barraTiempo.create(980, 670, 'barraTiempo').refreshBody().setScaleY=3;
-        barraTiempo.create(1120, 620, 'barraTiempo').setScale(0.3).refreshBody();
-        barraTiempo.create(1260, 570, 'barraTiempo').setScale(0.3).refreshBody();
-        barraTiempo.create(1400, 520, 'barraTiempo').setScale(0.3).refreshBody();
+        barraTiempo.create(980, 670, 'barraTiempo').refreshBody();
+        barraTiempo.create(1120, 620, 'barraTiempo')//setScale(0.3).refreshBody();
+        barraTiempo.create(1260, 570, 'barraTiempo')//.setScale(0.3).refreshBody();
+        barraTiempo.create(1400, 520, 'barraTiempo')//.setScale(0.3).refreshBody();
 
         barraTorre.create(820, 575, 'barraElevador').setDepth(-1).setScale(0.5).refreshBody();
 
@@ -53,8 +53,8 @@ class Bootloader extends Phaser.Scene{
         barrasHielo.create(740,130, 'barraArriba3').setScale(0.8).refreshBody()
         barrasHielo.create(1000,130, 'barraArriba4').setScale(0.8).refreshBody()
 
-        this.picos = this.add.image(1200, 735, 'picos');
-        this.picos.setScale(0.3);
+        this.picos = this.add.image(1200, 745, 'picos');
+        this.picos.setScale(0.2);
         
         this.escalar = this.add.image(1120, 365, 'escalar');
         this.escalar.setScale(0.28);
