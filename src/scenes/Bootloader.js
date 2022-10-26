@@ -39,6 +39,7 @@ class Bootloader extends Phaser.Scene{
         var barrasArriba = this.physics.add.staticGroup();
         var barrasHielo = this.physics.add.staticGroup();
         var barrasCuerda = this.physics.add.staticGroup();
+        var picos = this.physics.add.staticGroup();
 
         torres.create(150, 715, 'torre1').setScale(0.2).refreshBody();
         torres.create(300, 715, 'torre2').setScale(0.2).refreshBody();
@@ -59,13 +60,13 @@ class Bootloader extends Phaser.Scene{
         barrasArriba.create(1230,170, 'barraArriba1').setScale(0.3).refreshBody()
 
         barrasHielo.create(740,170, 'barraArriba3').setScale(0.3).refreshBody()
-        barrasHielo.create(1000,170, 'barraArriba4').setScale(0.3).refreshBody()
+        barrasHielo.create(1000,170, 'barraArriba4').setScale(0.3).refreshBody();
 
         barrasCuerda.create(865,320, 'barraCF1').setScale(0.3).refreshBody()
         barrasCuerda.create(260,320, 'barraCF2').setScale(0.3).refreshBody()
 
-        this.picos = this.add.image(1200, 735, 'picos');
-        this.picos.setScale(0.3);
+        picos.create(1200, 735, 'picos').setScale(0.3).refreshBody();
+        picos.create(480, 820, 'picos').setScale(0.3).refreshBody();
         
         this.escalar = this.add.image(1120, 365, 'escalar');
         this.escalar.setScale(0.28);
@@ -82,17 +83,11 @@ class Bootloader extends Phaser.Scene{
         this.cursors = this.input.keyboard.createCursorKeys();
         
         this.physics.add.existing(this.escalar, true );
-        //this.physics.add.existing(this.barraArriba, true );
-        //this.physics.add.existing(this.barraArriba2, true );
-        //this.physics.add.existing(this.barraArriba3, true );
-        //this.physics.add.existing(this.barraArriba4, true );
-        // this.physics.add.existing(this.barraArriba5, true );
+        this.physics.add.existing(this.barraArriba5, true );
         this.physics.add.existing(this.escalera, true );
         // this.physics.add.existing(this.barraCF1, true );
         // this.physics.add.existing(this.barraCF2, true );
         this.physics.add.existing(this.cuerda, true );
-        this.physics.add.existing(this.picos, true );
-        //this.physics.add.existing(this.barraTorre, true );
         this.physics.add.existing(this.barraDiagonal, true );
         this.physics.add.existing(this.puerta, true );
         // this.physics.add.existing(this.barraPuerta, true );
@@ -143,6 +138,11 @@ class Bootloader extends Phaser.Scene{
             this.javier.setAccelerationX(0);
         });
 
+        this.physics.add.collider(this.javier, picos, () => {
+            this.javier.setVelocityX(0);
+            this.javier.setAccelerationX(0);
+            // thi
+        });
     }
 
 
