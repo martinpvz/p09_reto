@@ -12,7 +12,8 @@ class Bootloader extends Phaser.Scene{
     preload() {
         this.load.path = './assets/';
         this.load.image(['barraArriba1', 'barraArriba2', 'barraArriba3', 'barraArriba4', 'barraPuerta', 'puerta', 'barraCF1', 'barraCF2', 
-        'cuerda', 'torre1', 'torre2', 'torre3', 'torre4', 'torre5', 'barraElevador', 'picos', 'barraTiempo', 'escalar', 'barraDiagonal', 'escalera', 'ninja','fondo_opc1','coleccionable']);
+        'cuerda', 'torre1', 'torre2', 'torre3', 'torre4', 'torre5', 'barraElevador', 'picos', 'barraTiempo', 'escalar', 'barraDiagonal',
+        'escalera', 'ninja','fondo_opc1','coleccionable','end']);
         this.load.audio('gong', ['./gong.mp3']);
         this.load.audio('musicaFondo', ['./musicaFondo.mp3']);
     }
@@ -24,6 +25,7 @@ class Bootloader extends Phaser.Scene{
         this.musicaFondo.play();
         //FONDO Y SPRITE
         this.fondo = this.add.image(800, 395, 'fondo_opc1').setScale(1.1).setDepth(-3).setAlpha(0.8);
+        this.end = this.add.image(800, 220, 'end').setDepth(4).setScale(0.3).setAlpha(0);
         this.javier = this.physics.add.image(50, 700, 'ninja').setScale(0.1);
         this.javier.body.setSize(200, 500);
         this.javier.body.setOffset(180,0);
@@ -158,10 +160,12 @@ class Bootloader extends Phaser.Scene{
             this.musicaFondo.stop();
             this.scene.restart();
         });
-        //Choque con puerta
+        //CHOQUE CON PUERTA / FINAL DE NIVEL
         this.physics.add.collider(this.javier, this.puerta, () => {
             //console.log("Llegó a puerta");
             this.gong.play();
+            this.end.setAlpha(1);
+            this.fondo.setDepth(3).setAlpha(1);
         });
     }
 
