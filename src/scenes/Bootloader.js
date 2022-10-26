@@ -22,6 +22,7 @@ class Bootloader extends Phaser.Scene{
         this.javier.body.setMass(1);
 
         this.barraMovible = this.physics.add.image(900,155, 'barraArriba2').setScale(0.6).refreshBody();
+        this.barraMovible.setImmovable();
         this.barraMovible.body.setAllowGravity(false);
         this.add.tween({
             targets: this.barraMovible,
@@ -114,7 +115,7 @@ class Bootloader extends Phaser.Scene{
         //     this.javier.setAcceleration(0);
         // });
         this.physics.add.collider(this.javier, this.barraMovible, () => {
-            this.barraMovible.setVelocity(0);
+            
         });
         this.physics.add.collider(this.javier, torres);
         this.physics.add.collider(this.javier, barraTiempo, () => {
@@ -152,7 +153,6 @@ class Bootloader extends Phaser.Scene{
 
     update(time, delta) {
         // console.log(this.javier.body.onFloor());
-
         //Movimientos
         if (this.cursors.left.isDown)
         {
