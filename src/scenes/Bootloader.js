@@ -21,7 +21,16 @@ class Bootloader extends Phaser.Scene{
         this.javier.body.setOffset(180,0);
         this.javier.body.setMass(1);
 
-        // this.barraArriba5 = this.add.image(1230, 170, 'barraArriba1');
+        this.barraMovible = this.physics.add.image(900,155, 'barraArriba2').setScale(0.6).refreshBody();
+        this.barraMovible.body.setAllowGravity(false);
+        this.add.tween({
+            targets: this.barraMovible,
+            x: 1200,
+            yoyo: true,
+            duration: 2000,
+            repeat: -1,
+            easy: 'Power1',
+        });
         // this.barraArriba5.setScale(0.3)
         // this.barraPuerta = this.add.image(1460, 230, 'barraPuerta');
         // this.barraPuerta.setScale(0.3)
@@ -53,13 +62,13 @@ class Bootloader extends Phaser.Scene{
 
         barraTorre.create(820, 575, 'barraElevador').setDepth(-1).setScale(0.5).refreshBody();
 
-       // barrasArriba.create(100,200, 'barraArriba1').setScale(0.6).refreshBody()
+        barrasArriba.create(100,200, 'barraArriba1').setScale(0.6).refreshBody()
         barrasArriba.create(370,150, 'barraArriba2').setScale(0.6).refreshBody()
         barrasArriba.create(1460,200, 'barraPuerta').setScale(0.8).refreshBody()
        // barrasArriba.create(1230,155, 'barraArriba1').setScale(0.6).refreshBody()
 
-        barrasHielo.create(680,155, 'barraArriba2').setScale(0.6).refreshBody()
-        barrasHielo.create(1030,155, 'barraArriba2').setScale(0.6).refreshBody();
+        barrasHielo.create(650,155, 'barraArriba2').setScale(0.6).refreshBody()
+        //barrasHielo.create(1030,155, 'barraArriba2').setScale(0.6).refreshBody();
 
         barrasCuerda.create(720,340, 'barraCF1').setScale(0.6).refreshBody()
         barrasCuerda.create(260,340, 'barraCF2').setScale(0.6).refreshBody()
@@ -104,6 +113,9 @@ class Bootloader extends Phaser.Scene{
         //     this.javier.setVelocity(0);
         //     this.javier.setAcceleration(0);
         // });
+        this.physics.add.collider(this.javier, this.barraMovible, () => {
+            this.barraMovible.setVelocity(0);
+        });
         this.physics.add.collider(this.javier, torres);
         this.physics.add.collider(this.javier, barraTiempo, () => {
             //algo
@@ -169,6 +181,8 @@ class Bootloader extends Phaser.Scene{
         {
             this.javier.y -= 3;
         }
+
+        this.barrasArriba
     }
 }
 
