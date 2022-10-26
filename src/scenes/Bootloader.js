@@ -21,8 +21,8 @@ class Bootloader extends Phaser.Scene{
         this.javier.body.setMass(1);
 
         this.barraArriba5 = this.add.image(1230, 130, 'barraArriba1').setScale(0.8);
-        this.barraPuerta = this.add.image(1460, 230, 'barraPuerta');
-        this.barraPuerta.setScale(0.3)
+        this.barraPuerta = this.add.image(1460, 200, 'barraPuerta');
+        this.barraPuerta.setScale(0.7)
         this.puerta = this.add.image(1460, 135, 'puerta').setScale(0.8);
         this.barraCF1 = this.add.image(260, 280, 'barraCF2').setScale(0.8);
         this.barraCF2 = this.add.image(780, 280, 'barraCF1').setScale(0.8);
@@ -46,9 +46,9 @@ class Bootloader extends Phaser.Scene{
         barraTiempo.create(1400, 520, 'barraTiempo').setScale(0.3).refreshBody();
 
         barraTorre.create(820, 575, 'barraElevador').setDepth(-1).setScale(0.5).refreshBody();
-        
-        barrasArriba.create(160,170, 'barraArriba1').setScale(0.3).refreshBody()
-        barrasArriba.create(430,170, 'barraArriba2').setScale(0.3).refreshBody()
+
+        barrasArriba.create(185,130, 'barraArriba1').setScale(0.8).refreshBody()
+        barrasArriba.create(415,130, 'barraArriba2').setScale(0.8).refreshBody()
 
         barrasHielo.create(740,130, 'barraArriba3').setScale(0.8).refreshBody()
         barrasHielo.create(1000,130, 'barraArriba4').setScale(0.8).refreshBody()
