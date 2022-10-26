@@ -11,7 +11,7 @@ class Bootloader extends Phaser.Scene{
     
     preload() {
         this.load.path = './assets/';
-        this.load.image(['barraArriba1', 'barraArriba2', 'barraArriba3', 'barraArriba4', 'barraPuerta', 'puerta', 'barraCF1', 'barraCF2', 'cuerda', 'torre1', 'torre2', 'torre3', 'torre4', 'torre5', 'barraElevador', 'picos', 'barraTiempo', 'escalar', 'barraDiagonal', 'escalera', 'ninja']);
+        this.load.image(['barraArriba1', 'barraArriba2', 'barraArriba3', 'barraArriba4', 'barraPuerta', 'puerta', 'barraCF1', 'barraCF2', 'cuerda', 'torre1', 'torre2', 'torre3', 'torre4', 'torre5', 'barraElevador', 'picos', 'barraTiempo', 'escalar', 'barraDiagonal', 'escalera', 'ninja','fondo_opc1x||']);
     }
 
     create() {
@@ -53,7 +53,7 @@ class Bootloader extends Phaser.Scene{
         barrasHielo.create(740,130, 'barraArriba3').setScale(0.8).refreshBody()
         barrasHielo.create(1000,130, 'barraArriba4').setScale(0.8).refreshBody()
 
-        this.picos = this.add.image(1200, 745, 'picos');
+        this.picos = this.add.image(1200, 750, 'picos');
         this.picos.setScale(0.2);
         
         this.escalar = this.add.image(1000, 335, 'escalar');
