@@ -63,8 +63,11 @@ class Bootloader extends Phaser.Scene{
         barrasCuerda.create(720,340, 'barraCF1').setScale(0.6).refreshBody()
         barrasCuerda.create(260,340, 'barraCF2').setScale(0.6).refreshBody()
 
-        picos.create(1200, 745, 'picos').setScale(0.2).refreshBody();
-        picos.create(480, 820, 'picos').setScale(0.3).refreshBody();
+        picos.create(1000, 760, 'picos').setScale(0.15).refreshBody();
+        picos.create(310, 760, 'picos').setScale(0.15).setDepth(-1).refreshBody();
+        picos.create(660, 760, 'picos').setScale(0.15).setDepth(-1).refreshBody();
+        picos.create(1340, 760, 'picos').setScale(0.15).refreshBody();
+        picos.create(1690, 760, 'picos').setScale(0.15).refreshBody();
 
         //Colisiones con los limites del mundo
         this.javier.body.setCollideWorldBounds(true);
