@@ -39,18 +39,19 @@ class Bootloader extends Phaser.Scene{
         var barrasArriba = this.physics.add.staticGroup()
         var barrasHielo = this.physics.add.staticGroup()
 
-        torres.create(150, 715, 'torre1').setScale(0.2).refreshBody();
-        torres.create(300, 715, 'torre2').setScale(0.2).refreshBody();
-        torres.create(450, 715, 'torre3').setScale(0.2).refreshBody();
-        torres.create(600, 715, 'torre4').setScale(0.2).refreshBody();
-        torres.create(780, 715, 'torre5').setScale(0.2).refreshBody();
+        //Imagenes Torres
+        torres.create(150, 730, 'torre1').setScale(0.6).refreshBody();
+        torres.create(300, 715, 'torre2').setScale(0.6).refreshBody();
+        torres.create(450, 715, 'torre3').setScale(0.6).refreshBody();
+        torres.create(600, 715, 'torre4').setScale(0.6).refreshBody();
+        torres.create(760, 715, 'torre5').setScale(0.6).refreshBody();
 
-        barraTiempo.create(980, 670, 'barraTiempo').setScale(0.3).refreshBody();
+        barraTorre.create(820, 575, 'barraElevador').setDepth(-1).setScale(0.5).refreshBody();
+
+        barraTiempo.create(980, 670, 'barraTiempo').refreshBody().setScaleY=3;
         barraTiempo.create(1120, 620, 'barraTiempo').setScale(0.3).refreshBody();
         barraTiempo.create(1260, 570, 'barraTiempo').setScale(0.3).refreshBody();
         barraTiempo.create(1400, 520, 'barraTiempo').setScale(0.3).refreshBody();
-
-        barraTorre.create(840, 585, 'barraElevador').setDepth(-1).setScale(0.2).refreshBody();
 
         barrasArriba.create(160,170, 'barraArriba1').setScale(0.3).refreshBody()
         barrasArriba.create(430,170, 'barraArriba2').setScale(0.3).refreshBody()
