@@ -15,7 +15,7 @@ class Bootloader extends Phaser.Scene{
     }
 
     create() {
-        this.javier = this.physics.add.image(50, 100, 'ninja').setScale(0.17);
+        this.javier = this.physics.add.image(50, 700, 'ninja').setScale(0.17);
         this.javier.body.setSize(200, 500);
         this.javier.body.setOffset(180,0);
         this.javier.body.setMass(1);
@@ -35,7 +35,7 @@ class Bootloader extends Phaser.Scene{
 
         var torres = this.physics.add.staticGroup();
         var barraTiempo = this.physics.add.staticGroup();
-        var barraTorre = this.physics.add.staticGroup();
+        var barraTorre = this.physics.add.group();
         var barrasArriba = this.physics.add.staticGroup();
         var barrasHielo = this.physics.add.staticGroup();
         var barrasCuerda = this.physics.add.staticGroup();
@@ -67,6 +67,15 @@ class Bootloader extends Phaser.Scene{
 
         picos.create(1200, 735, 'picos').setScale(0.3).refreshBody();
         picos.create(480, 820, 'picos').setScale(0.3).refreshBody();
+
+        //Colisiones con los limites del mundo
+        this.javier.body.setCollideWorldBounds(true);
+        barraTorre.children.iterate( (torreT) => {
+            torreT.setCollideWorldBounds(true);
+            torreT.body.setAllowGravity(false);
+        } );
+        // barraTorre.group.setCollideWorldBounds(true);
+        // barraTorre.onWorldBounds = true;
         
         this.escalar = this.add.image(1120, 365, 'escalar');
         this.escalar.setScale(0.28);
@@ -75,8 +84,6 @@ class Bootloader extends Phaser.Scene{
         this.escalera = this.add.image(262, 230, 'escalera');
         this.escalera.setScale(0.3);
 
-        //Colisiones con los limites del mundo
-        this.javier.body.setCollideWorldBounds(true);
         // this.obstaculo1.body.setCollideWorldBounds(true);
 
         //Teclado
@@ -124,12 +131,9 @@ class Bootloader extends Phaser.Scene{
             this.javier.setVelocityX(0);
             this.javier.setAccelerationX(0);
         });
-
+        //Choque con picos
         this.physics.add.collider(this.javier, picos, () => {
-            //algo  
-        });
-        this.physics.add.collider(this.javier, this.puerta, () => {
-            //hacer sonido y ganar
+            this.scene.restart();
         });
     }
 
