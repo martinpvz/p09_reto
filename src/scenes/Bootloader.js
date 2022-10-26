@@ -151,7 +151,7 @@ class Bootloader extends Phaser.Scene{
 
 
     update(time, delta) {
-        console.log(this.javier.body.onFloor());
+        // console.log(this.escalera.body.touching);
 
         //Movimientos
         if (this.cursors.left.isDown)
