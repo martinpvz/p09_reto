@@ -56,8 +56,8 @@ class Bootloader extends Phaser.Scene{
         this.picos = this.add.image(1200, 745, 'picos');
         this.picos.setScale(0.2);
         
-        this.escalar = this.add.image(1120, 365, 'escalar');
-        this.escalar.setScale(0.28);
+        this.escalar = this.add.image(1000, 335, 'escalar');
+        this.escalar.setScale(0.27);
         this.barraDiagonal = this.add.image(1510, 450, 'barraDiagonal');
         this.barraDiagonal.setScale(0.6);
         this.escalera = this.add.image(265, 190, 'escalera');
