@@ -44,7 +44,7 @@ class Bootloader extends Phaser.Scene{
 
         var torres = this.physics.add.staticGroup();
         var barraTiempo = this.physics.add.staticGroup();
-        var barraTorre = this.physics.add.group();
+        this.barraTorre = this.physics.add.group();
         var barrasArriba = this.physics.add.staticGroup();
         var barrasHielo = this.physics.add.staticGroup();
         var barrasCuerda = this.physics.add.staticGroup();
@@ -61,7 +61,7 @@ class Bootloader extends Phaser.Scene{
         barraTiempo.create(1260, 570, 'barraTiempo').refreshBody();
         barraTiempo.create(1400, 520, 'barraTiempo').refreshBody();
 
-        barraTorre.create(820, 575, 'barraElevador').setDepth(-1).setScale(0.5).refreshBody();
+        this.barraTorre.create(820, 575, 'barraElevador').setDepth(-1).setScale(0.5).refreshBody();
 
         barrasArriba.create(100,200, 'barraArriba1').setScale(0.6).refreshBody()
         barrasArriba.create(370,150, 'barraArriba2').setScale(0.6).refreshBody()
@@ -82,7 +82,7 @@ class Bootloader extends Phaser.Scene{
 
         //Colisiones con los limites del mundo
         this.javier.body.setCollideWorldBounds(true);
-        barraTorre.children.iterate( (torreT) => {
+        this.barraTorre.children.iterate( (torreT) => {
             torreT.setCollideWorldBounds(true);
             torreT.body.setAllowGravity(false);
         } );
@@ -121,28 +121,28 @@ class Bootloader extends Phaser.Scene{
         this.physics.add.collider(this.javier, barraTiempo, () => {
             //algo
         });
-        this.physics.add.collider(this.javier, barraTorre, () => {
+        this.physics.add.collider(this.javier, this.barraTorre, () => {
             //algo
         });
         this.physics.add.collider(this.javier, this.barraDiagonal);
         this.physics.add.collider(this.javier, this.escalar, () => {
             this.javier.setVelocityY(0);
             this.javier.setAccelerationY(0);
-            // if (this.cursors.up.isDown && this.escalar.body.touching.right)
-            // {
-            //     this.javier.y -= 3;
-            // }
+        });
+        this.physics.add.collider(this.javier, this.escalera, () => {
+            this.javier.setVelocityY(0);
+            this.javier.setAccelerationY(0);
         });
         this.physics.add.collider(this.javier, barrasArriba);
         this.physics.add.collider(this.javier, barrasHielo, () => {
-            this.javier.setVelocityX(0);
-            this.javier.setAccelerationX(0);
+            // this.javier.setVelocityX(0);
+            // this.javier.setAccelerationX(0);
         });
         this.physics.add.collider(this.javier, this.barraPuerta);
         this.physics.add.collider(this.javier, barrasCuerda);
         this.physics.add.collider(this.javier, this.cuerda, () => {
-            this.javier.setVelocityX(0);
-            this.javier.setAccelerationX(0);
+            // this.javier.setVelocityX(0);
+            // this.javier.setAccelerationX(0);
         });
         //Choque con picos
         this.physics.add.collider(this.javier, picos, () => {
@@ -172,17 +172,26 @@ class Bootloader extends Phaser.Scene{
         }
 
         //(this.cursors.up.isDown&& this.javier.body.onWall()) Este es para salto en la pared PROBABLE  
-        if (this.cursors.up.isDown && this.javier.body.onFloor())
+        if ((this.cursors.up.isDown && this.javier.body.onFloor())||(this.cursors.up.isDown && this.barraTorre.getChildren()[0].body.touching.up))
         {
             this.javier.setVelocityY(-500);
         }
-
+        // if(this.cursors.up.isDown && this.barraTorre.getChildren()[0].body.touching.up)
+        // {
+        //     this.javier.setVelocityY(-500);
+        // }
         if (this.cursors.up.isDown && this.escalar.body.touching.right && this.javier.body.touching.left)
         {
             this.javier.y -= 3;
         }
+        if (this.cursors.up.isDown && this.escalera.body.touching.left && this.javier.body.touching.right)
+        {
+            this.javier.y -= 3;
+        }
 
-        this.barrasArriba
+        if(this.barraTorre.getChildren()[0].y>769){
+            this.barraTorre.getChildren()[0].disableBody(true, true);
+        }
     }
 }
 
