@@ -184,7 +184,7 @@ class Bootloader extends Phaser.Scene{
         {
             this.javier.y -= 3;
         }
-        if (this.cursors.up.isDown && this.escalera.body.touching && this.javier.body.touching)
+        if (this.cursors.up.isDown && this.escalera.body.touching.left && this.javier.body.touching.right)
         {
             this.javier.y -= 3;
         }
