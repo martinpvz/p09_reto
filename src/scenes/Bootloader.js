@@ -11,10 +11,11 @@ class Bootloader extends Phaser.Scene{
     
     preload() {
         this.load.path = './assets/';
-        this.load.image(['barraArriba1', 'barraArriba2', 'barraArriba3', 'barraArriba4', 'barraPuerta', 'puerta', 'barraCF1', 'barraCF2', 'cuerda', 'torre1', 'torre2', 'torre3', 'torre4', 'torre5', 'barraElevador', 'picos', 'barraTiempo', 'escalar', 'barraDiagonal', 'escalera', 'ninja','fondo_opc1x||']);
+        this.load.image(['barraArriba1', 'barraArriba2', 'barraArriba3', 'barraArriba4', 'barraPuerta', 'puerta', 'barraCF1', 'barraCF2', 'cuerda', 'torre1', 'torre2', 'torre3', 'torre4', 'torre5', 'barraElevador', 'picos', 'barraTiempo', 'escalar', 'barraDiagonal', 'escalera', 'ninja','fondo_opc1']);
     }
 
     create() {
+        this.fondo = this.add.image(800, 400, 'fondo_opc1').setScale(1.1).setDepth(-3).setAlpha(0.8);
         this.javier = this.physics.add.image(50, 700, 'ninja').setScale(0.1);
         this.javier.body.setSize(200, 500);
         this.javier.body.setOffset(180,0);
