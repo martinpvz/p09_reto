@@ -16,23 +16,23 @@ class Bootloader extends Phaser.Scene{
 
     create() {
         this.fondo = this.add.image(800, 400, 'fondo_opc1').setScale(1.1).setDepth(-3).setAlpha(0.8);
-        this.javier = this.physics.add.image(50, 700, 'ninja').setScale(0.1);
+        this.javier = this.physics.add.image(150, 50, 'ninja').setScale(0.1);
         this.javier.body.setSize(200, 500);
         this.javier.body.setOffset(180,0);
         this.javier.body.setMass(1);
 
-        this.barraMovible = this.physics.add.image(900,155, 'barraArriba2').setScale(0.6).refreshBody();
-        this.barraMovible.setImmovable();
-        this.barraMovible.body.setAllowGravity(false);
-        this.add.tween({
-            targets: this.barraMovible,
-            x: 1200,
-            yoyo: true,
-            duration: 2000,
-            repeat: -1,
-            easy: 'Power1',
-        });
-        // this.barraArriba5.setScale(0.3)
+        //this.barraMovible = this.physics.add.image(900,155, 'barraArriba2').setScale(0.6).refreshBody();
+        // this.barraMovible.setImmovable();
+        // this.barraMovible.body.setAllowGravity(false);
+        // this.add.tween({
+        //     targets: this.barraMovible,
+        //     x: 1200,
+        //     yoyo: true,
+        //     duration: 2000,
+        //     repeat: -1,
+        //     easy: 'Power1',
+        // });
+        // // this.barraArriba5.setScale(0.3)
         // this.barraPuerta = this.add.image(1460, 230, 'barraPuerta');
         // this.barraPuerta.setScale(0.3)
         this.puerta = this.add.image(1460, 135, 'puerta').setScale(0.7);
@@ -45,7 +45,7 @@ class Bootloader extends Phaser.Scene{
         var torres = this.physics.add.staticGroup();
         var barraTiempo = this.physics.add.staticGroup();
         this.barraTorre = this.physics.add.group();
-        var barrasArriba = this.physics.add.staticGroup();
+        this.barrasArriba = this.physics.add.staticGroup();
         var barrasHielo = this.physics.add.staticGroup();
         var barrasCuerda = this.physics.add.staticGroup();
         var picos = this.physics.add.staticGroup();
@@ -63,11 +63,13 @@ class Bootloader extends Phaser.Scene{
 
         this.barraTorre.create(820, 575, 'barraElevador').setDepth(-1).setScale(0.5).refreshBody();
 
-        barrasArriba.create(100,200, 'barraArriba1').setScale(0.6).refreshBody()
-        barrasArriba.create(370,150, 'barraArriba2').setScale(0.6).refreshBody()
-        barrasArriba.create(1460,200, 'barraPuerta').setScale(0.8).refreshBody()
-       // barrasArriba.create(1230,155, 'barraArriba1').setScale(0.6).refreshBody()
-
+        //barrasArriba.create(100,200, 'barraArriba1').setScale(0.6).refreshBody()
+        this.barrasArriba.create(370,150, 'barraArriba2').setScale(0.6).refreshBody();
+        this.barrasArriba.create(1460,190, 'barraPuerta').setScale(0.8).refreshBody();
+        this.barrasArriba.create(1230,155, 'barraArriba1').setScale(0.6).refreshBody().disableBody(true,true);
+        this.barrasArriba.create(1060,155, 'barraArriba1').setScale(0.6).refreshBody().disableBody(true,true);
+        this.barrasArriba.create(890,155, 'barraArriba1').setScale(0.6).refreshBody().disableBody(true,true);
+        
         barrasHielo.create(650,155, 'barraArriba2').setScale(0.6).refreshBody()
         //barrasHielo.create(1030,155, 'barraArriba2').setScale(0.6).refreshBody();
 
@@ -93,7 +95,20 @@ class Bootloader extends Phaser.Scene{
         this.escalar.setScale(0.27);
         this.barraDiagonal = this.add.image(1250, 400, 'barraDiagonal').setScale(0.6);
         this.escalera = this.add.image(300, 215, 'escalera').setScale(0.8);
-
+        //COLECCIONABLE
+        this.objeto = this.physics.add.image(650,100,'barraArriba1').setScale(.3);
+        this.objeto.body.setAllowGravity(false);
+        this.physics.add.overlap(this.javier, this.objeto, collectObjeto, null, this);
+        function collectObjeto (jugador, objeto)
+        {
+            objeto.disableBody(true, true);
+            console.log("aparecer barras");
+            console.log(this.barrasArriba);
+            this.barrasArriba.getChildren()[2].enableBody(false,0,0,true,true);
+            this.barrasArriba.getChildren()[3].enableBody(false,0,0,true,true);
+            this.barrasArriba.getChildren()[4].enableBody(false,0,0,true,true);
+            
+        }
         // this.obstaculo1.body.setCollideWorldBounds(true);
 
         //Teclado
@@ -133,7 +148,7 @@ class Bootloader extends Phaser.Scene{
             this.javier.setVelocityY(0);
             this.javier.setAccelerationY(0);
         });
-        this.physics.add.collider(this.javier, barrasArriba);
+        this.physics.add.collider(this.javier, this.barrasArriba);
         this.physics.add.collider(this.javier, barrasHielo, () => {
             // this.javier.setVelocityX(0);
             // this.javier.setAccelerationX(0);
@@ -192,7 +207,10 @@ class Bootloader extends Phaser.Scene{
         if(this.barraTorre.getChildren()[0].y>769){
             this.barraTorre.getChildren()[0].disableBody(true, true);
         }
+
     }
+
+
 }
 
 export default Bootloader;
