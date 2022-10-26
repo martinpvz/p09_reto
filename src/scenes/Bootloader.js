@@ -83,7 +83,7 @@ class Bootloader extends Phaser.Scene{
         this.cursors = this.input.keyboard.createCursorKeys();
         
         this.physics.add.existing(this.escalar, true );
-        this.physics.add.existing(this.barraArriba5, true );
+        // this.physics.add.existing(this.barraArriba5, true );
         this.physics.add.existing(this.escalera, true );
         // this.physics.add.existing(this.barraCF1, true );
         // this.physics.add.existing(this.barraCF2, true );
@@ -97,51 +97,39 @@ class Bootloader extends Phaser.Scene{
         //     this.javier.setVelocity(0);
         //     this.javier.setAcceleration(0);
         // });
-        this.physics.add.collider(this.javier, torres, () => {
-            this.javier.setVelocityX(0);
-            this.javier.setAccelerationX(0);
-        });
+        this.physics.add.collider(this.javier, torres);
         this.physics.add.collider(this.javier, barraTiempo, () => {
-            this.javier.setVelocityX(0);
-            this.javier.setAccelerationX(0);
+            //algo
         });
         this.physics.add.collider(this.javier, barraTorre, () => {
-            this.javier.setVelocityX(0);
-            this.javier.setAccelerationX(0);
+            //algo
         });
-        this.physics.add.collider(this.javier, this.barraDiagonal, () => {
-            this.javier.setVelocityX(0);
-            this.javier.setAccelerationX(0);
-        });
+        this.physics.add.collider(this.javier, this.barraDiagonal);
         this.physics.add.collider(this.javier, this.escalar, () => {
-            this.javier.setVelocityX(0);
-            this.javier.setAccelerationX(0);
+            this.javier.setVelocityY(0);
+            this.javier.setAccelerationY(0);
+            // if (this.cursors.up.isDown && this.escalar.body.touching.right)
+            // {
+            //     this.javier.y -= 3;
+            // }
         });
-        this.physics.add.collider(this.javier, barrasArriba, () => {
-            this.javier.setVelocityX(0);
-            this.javier.setAccelerationX(0);
-        });
+        this.physics.add.collider(this.javier, barrasArriba);
         this.physics.add.collider(this.javier, barrasHielo, () => {
             this.javier.setVelocityX(0);
             this.javier.setAccelerationX(0);
         });
-        this.physics.add.collider(this.javier, this.barraPuerta, () => {
-            this.javier.setVelocityX(0);
-            this.javier.setAccelerationX(0);
-        });
-        this.physics.add.collider(this.javier, barrasCuerda, () => {
-            this.javier.setVelocityX(0);
-            this.javier.setAccelerationX(0);
-        });
+        this.physics.add.collider(this.javier, this.barraPuerta);
+        this.physics.add.collider(this.javier, barrasCuerda);
         this.physics.add.collider(this.javier, this.cuerda, () => {
             this.javier.setVelocityX(0);
             this.javier.setAccelerationX(0);
         });
 
         this.physics.add.collider(this.javier, picos, () => {
-            this.javier.setVelocityX(0);
-            this.javier.setAccelerationX(0);
-            // thi
+            //algo  
+        });
+        this.physics.add.collider(this.javier, this.puerta, () => {
+            //hacer sonido y ganar
         });
     }
 
@@ -171,6 +159,11 @@ class Bootloader extends Phaser.Scene{
         if (this.cursors.up.isDown && this.javier.body.onFloor())
         {
             this.javier.setVelocityY(-500);
+        }
+
+        if (this.cursors.up.isDown && this.escalar.body.touching.right && this.javier.body.touching.left)
+        {
+            this.javier.y -= 3;
         }
     }
 }
