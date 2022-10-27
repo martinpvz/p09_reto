@@ -22,10 +22,10 @@ class Fisicas2 extends Phaser.Scene{
         //MÚSICA
         this.gong = this.sound.add('gong',{loop:false});
         this.musicaFondo = this.sound.add('musicaFondo',{loop:false});
-        //this.musicaFondo.play();
+        this.musicaFondo.play();
         //FONDO Y SPRITE
         this.fondo = this.add.image(800, 395, 'fondo_opc1').setScale(1.1).setDepth(-3).setAlpha(0.8);
-        //this.end = this.add.image(250, 60, 'end').setDepth(4).setScale(0.15).setDepth(2);
+        this.end = this.add.image(250, 80, 'end').setScale(0.15).setDepth(4).setAlpha(0);
         this.javier = this.physics.add.image(50, 10, 'ninja').setScale(0.1);
         this.javier.body.setSize(200, 500);
         this.javier.body.setOffset(180,0);
@@ -79,7 +79,7 @@ class Fisicas2 extends Phaser.Scene{
         this.objeto = this.physics.add.image(1400,100,'coleccionable').setScale(.3);
         this.objeto.body.setAllowGravity(false);
         this.physics.add.overlap(this.javier, this.objeto, collectObjeto1, null, this);
-        this.objeto2 = this.physics.add.image(1450,350,'coleccionable').setScale(.3);
+        this.objeto2 = this.physics.add.image(1450,250,'coleccionable').setScale(.3);
         this.objeto2.body.setAllowGravity(false);
         this.physics.add.overlap(this.javier, this.objeto2, collectObjeto2, null, this);
         this.objeto3 = this.physics.add.image(20,450,'coleccionable').setScale(.3);
@@ -112,14 +112,6 @@ class Fisicas2 extends Phaser.Scene{
 
         //Colisiones con los limites del mundo
         this.javier.body.setCollideWorldBounds(true);
-        // this.barraTorre.children.iterate( (torreT) => {
-        //     torreT.setCollideWorldBounds(true);
-        //     torreT.body.setAllowGravity(false);
-        // } );
-        // barraTorre.group.setCollideWorldBounds(true);
-        // barraTorre.onWorldBounds = true;
-
-        // this.obstaculo1.body.setCollideWorldBounds(true);
 
         //Teclado
         this.cursors = this.input.keyboard.createCursorKeys();
@@ -128,22 +120,7 @@ class Fisicas2 extends Phaser.Scene{
         this.physics.add.existing(this.escalar, true );
         this.physics.add.existing(this.escalar2, true );
         this.physics.add.existing(this.cuerda, true );
-
-
-        //Choque con Plataforma
-        // this.physics.add.collider(this.javier, this.obstaculo1, () => {
-        //     this.javier.setVelocity(0);
-        //     this.javier.setAcceleration(0);
-        // });
-        // this.physics.add.collider(this.javier, torres);
-
-        // this.physics.add.collider(this.javier, barraTiempo, () => {
-        //     //algo
-        // });
-        // this.physics.add.collider(this.javier, this.barraTorre, () => {
-        //     //algo
-        // });
-        // this.physics.add.collider(this.javier, this.barraDiagonal);
+        
         //COLISIÓN ESCALAR 2
         this.physics.add.collider(this.javier, this.escalar, () => {
             this.javier.setVelocityY(0);
@@ -170,19 +147,17 @@ class Fisicas2 extends Phaser.Scene{
         
         //COLISIÓN CON PICOS
         this.physics.add.collider(this.javier, this.picos, () => {
-            //this.musicaFondo.stop();
+            this.musicaFondo.stop();
             this.scene.restart();
         });
-        // //CHOQUE CON PUERTA / FINAL DE NIVEL
-        // this.physics.add.collider(this.javier, this.puerta, () => {
-        //     //console.log("Llegó a puerta");
-        //     this.gong.play();
-        //     //this.instrucciones.setAlpha(0);
-        //     this.sound.pauseAll();
-        //     this.scene.start("Fisicas2"); 
-        //     //this.end.setAlpha(1);
-        //     //this.fondo.setDepth(3).setAlpha(1);
-        // });
+
+        //COLISIÓN CON PUERTA / FINAL DE NIVEL
+        this.physics.add.collider(this.javier, this.puerta, () => {
+            this.gong.play();
+            this.sound.pauseAll();
+            this.end.setAlpha(1);
+            this.fondo.setDepth(3).setAlpha(1);
+        });
     }
 
 
@@ -207,7 +182,7 @@ class Fisicas2 extends Phaser.Scene{
 
         if ((this.cursors.up.isDown && this.javier.body.onFloor()))
         {
-            console.log("Entro a if");
+            //console.log("Entro a if");
             this.javier.setVelocityY(-500);
         }
 
