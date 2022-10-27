@@ -25,16 +25,41 @@ class Fisicas2 extends Phaser.Scene{
         //this.musicaFondo.play();
         //FONDO Y SPRITE
         this.fondo = this.add.image(800, 395, 'fondo_opc1').setScale(1.1).setDepth(-3).setAlpha(0.8);
-        this.end = this.add.image(250, 60, 'instrucciones').setDepth(4).setScale(0.15).setDepth(2);
-        //this.instrucciones = this.add.image(800, 220, 'end').setDepth(4).setScale(0.3).setAlpha(0);
+        //this.end = this.add.image(250, 60, 'end').setDepth(4).setScale(0.15).setDepth(2);
         this.javier = this.physics.add.image(50, 10, 'ninja').setScale(0.1);
         this.javier.body.setSize(200, 500);
         this.javier.body.setOffset(180,0);
         this.javier.body.setMass(1);
         
-        // this.puerta = this.physics.add.image(1460, 135, 'puerta').setScale(0.7);
-        // this.puerta.body.setAllowGravity(false);
-        // this.puerta.body.setImmovable(true);
+        //Picos
+        this.picos = this.physics.add.staticGroup();
+        this.picos.create(1000, 760, 'picos').setScale(0.15).refreshBody();
+        this.picos.create(310, 760, 'picos').setScale(0.15).setDepth(-1).refreshBody();
+        this.picos.create(660, 760, 'picos').setScale(0.15).setDepth(-1).refreshBody();
+        this.picos.create(1340, 760, 'picos').setScale(0.15).refreshBody();
+        this.picos.create(1690, 760, 'picos').setScale(0.15).refreshBody();
+        this.picos.create(-20, 760, 'picos').setScale(0.15).setDepth(-1).refreshBody();
+        this.picos.create(1440, 395, 'picos').setScale(0.13).setDepth(-1).refreshBody(); //Picos arriba
+        
+        //BarrasPicos
+        this.barrasPicos = this.physics.add.staticGroup();
+        this.barrasPicos.create(160,650, 'barraArriba2').setScale(0.6).refreshBody().disableBody(true,true); //BarraPicos1
+        this.barrasPicos.create(480,550, 'barraArriba2').setScale(0.6).refreshBody(); //BarraPicos2
+        this.barrasPicos.create(800,470, 'barraTiempo').setScale(0.6).refreshBody(); //BarraPicos3
+        this.barrasPicos.create(1100,430, 'barraArriba2').setScale(0.6).refreshBody(); //BarraPicos4
+        this.barrasPicos.create(1440,420, 'barraTiempo').setScale(2,1).refreshBody();  //BarraPicos5
+        this.barrasPicos.create(1465,718, 'barraPuerta').setScale(0.8).refreshBody(); //Barra Picos6
+        
+        //Torres
+        this.torres = this.physics.add.staticGroup();
+        this.torres.create(900, 730, 'torre1').setScale(0.6).refreshBody().disableBody(true,true);
+        this.torres.create(1110, 715, 'torre1').setScale(0.6).refreshBody().disableBody(true,true);
+        this.torres.create(1305, 600, 'torre5').setScale(0.7).refreshBody();
+        
+        //Puerta
+        this.puerta = this.physics.add.image(1460, 660, 'puerta').setScale(0.7);
+        this.puerta.body.setAllowGravity(false);
+        this.puerta.body.setImmovable(true);
 
         //GRUPO BARRAS ARRIBA
         this.barrasArriba = this.physics.add.staticGroup();
@@ -44,33 +69,47 @@ class Fisicas2 extends Phaser.Scene{
         this.barrasArriba.create(1450,200, 'barraArriba1').setScale(0.6).refreshBody();
 
         //ESCALAR
-        this.escalar = this.add.image(400, 300, 'escalar').setScale(0.27);
+        this.escalar = this.add.image(450, 300, 'escalar').setScale(0.27);
         this.escalar2 = this.add.image(1375, 247, 'escalar').setScale(0.27);
 
         //CUERDA
         this.cuerda = this.add.image(590, 246, 'cuerda').setScale(0.75);
 
-        //COLECCIONABLE
+        //COLECCIONABLES
         this.objeto = this.physics.add.image(1400,100,'coleccionable').setScale(.3);
         this.objeto.body.setAllowGravity(false);
-        this.physics.add.overlap(this.javier, this.objeto, collectObjeto, null, this);
-        function collectObjeto (jugador, objeto)
+        this.physics.add.overlap(this.javier, this.objeto, collectObjeto1, null, this);
+        this.objeto2 = this.physics.add.image(1450,350,'coleccionable').setScale(.3);
+        this.objeto2.body.setAllowGravity(false);
+        this.physics.add.overlap(this.javier, this.objeto2, collectObjeto2, null, this);
+        this.objeto3 = this.physics.add.image(20,450,'coleccionable').setScale(.3);
+        this.objeto3.body.setAllowGravity(false);
+        this.physics.add.overlap(this.javier, this.objeto3, collectObjeto3, null, this);
+        
+        function collectObjeto1 (jugador, objeto)
         {
             objeto.disableBody(true, true);
             console.log("Entro a collectObjeto");
-            console.log(this.barrasArriba);
-            // this.barrasArriba.getChildren()[2].enableBody(false,0,0,true,true);
-            // this.barrasArriba.getChildren()[3].enableBody(false,0,0,true,true);
-            // this.barrasArriba.getChildren()[4].enableBody(false,0,0,true,true);   
+            this.torres.getChildren()[0].enableBody(false,0,0,true,true);
+            this.picos.getChildren()[6].disableBody(true,true);
         }
         
-        var picos = this.physics.add.staticGroup();
-        picos.create(1000, 760, 'picos').setScale(0.15).refreshBody();
-        picos.create(310, 760, 'picos').setScale(0.15).setDepth(-1).refreshBody();
-        picos.create(660, 760, 'picos').setScale(0.15).setDepth(-1).refreshBody();
-        picos.create(1340, 760, 'picos').setScale(0.15).refreshBody();
-        picos.create(1690, 760, 'picos').setScale(0.15).refreshBody();
+
+        function collectObjeto2(jugador, objeto)
+        {
+            objeto.disableBody(true, true);
+            this.barrasPicos.getChildren()[0].enableBody(false,0,0,true,true);
+            this.torres.getChildren()[1].enableBody(false,0,0,true,true);
+        }
         
+        function collectObjeto3(jugador, objeto)
+        {
+            objeto.disableBody(true, true);
+            this.barrasPicos.getChildren()[2].disableBody(true,true);
+            this.torres.getChildren()[2].disableBody(true,true);
+        }
+
+
         //Colisiones con los limites del mundo
         this.javier.body.setCollideWorldBounds(true);
         // this.barraTorre.children.iterate( (torreT) => {
@@ -84,6 +123,7 @@ class Fisicas2 extends Phaser.Scene{
 
         //Teclado
         this.cursors = this.input.keyboard.createCursorKeys();
+        
         //FÍSICAS Y COLISIONES
         this.physics.add.existing(this.escalar, true );
         this.physics.add.existing(this.escalar2, true );
@@ -104,18 +144,32 @@ class Fisicas2 extends Phaser.Scene{
         //     //algo
         // });
         // this.physics.add.collider(this.javier, this.barraDiagonal);
+        //COLISIÓN ESCALAR 2
         this.physics.add.collider(this.javier, this.escalar, () => {
             this.javier.setVelocityY(0);
             this.javier.setAccelerationY(0);
         });
+
+        this.physics.add.collider(this.javier, this.escalar2, () => {
+            this.javier.setVelocityY(0);
+            this.javier.setAccelerationY(0);
+        });
+        
+        //COLISIÓN BARRAS PICOS
+        this.physics.add.collider(this.javier, this.barrasPicos);
+
+        //COLISIÓN TORRES
+        this.physics.add.collider(this.javier, this.torres);
+
+        //COLISIÓN BARRAS ARRIBA
         this.physics.add.collider(this.javier, this.barrasArriba);
         this.physics.add.collider(this.javier, this.cuerda, () => {
             this.javier.setVelocityX(0);
             this.javier.setAccelerationX(0);
         });
-        this.physics.add.collider(this.javier, this.escalar2);
-        //Choque con picos
-        this.physics.add.collider(this.javier, picos, () => {
+        
+        //COLISIÓN CON PICOS
+        this.physics.add.collider(this.javier, this.picos, () => {
             //this.musicaFondo.stop();
             this.scene.restart();
         });
@@ -133,7 +187,7 @@ class Fisicas2 extends Phaser.Scene{
 
 
     update(time, delta) {
-        //Movimientos
+        //MOVIMIENTOS
         if (this.cursors.left.isDown)
         {
             this.javier.setVelocityX(-160);
@@ -151,22 +205,22 @@ class Fisicas2 extends Phaser.Scene{
             this.javier.setVelocityX(0);
         }
 
-        if ((this.cursors.up.isDown && this.javier.body.onFloor())||(this.cursors.up.isDown /*&& this.barraTorre.getChildren()[0].body.touching.up*/))
+        if ((this.cursors.up.isDown && this.javier.body.onFloor()))
         {
+            console.log("Entro a if");
             this.javier.setVelocityY(-500);
         }
+
+        //PARA ESCALAR
         if (this.cursors.up.isDown && this.escalar.body.touching.left && this.javier.body.touching.right)
         {
             this.javier.y -= 3;
         }
+
         if (this.cursors.up.isDown && this.escalar2.body.touching.left && this.javier.body.touching.right)
         {
             this.javier.y -= 3;
         }
-
-        // if(this.barraTorre.getChildren()[0].y>769){
-        //     this.barraTorre.getChildren()[0].disableBody(true, true);
-        // }
 
     }
 
