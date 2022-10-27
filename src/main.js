@@ -14,7 +14,7 @@ const config = {
                                     // se refiere a dónde se pondrá el canvas o lienzo
     pixelArt: true,		            //Diseño con pixeles definidos (no borrosos)
     backgroundColor: "#34495e", 	//Color de fondo del canvas ()
-    scene: [Inicio,Fisicas,Fisicas2],    //Aquí irá la lista de scenas del juego
+    scene: [Fisicas2,Inicio,Fisicas],    //Aquí irá la lista de scenas del juego
     banner:{
         hidePhaser: true,
         text: "#fff00f",
@@ -30,7 +30,7 @@ const config = {
         gravity: {
         y: 800
         },
-        debug: true
+        debug: false
         }
         },
         scale: {

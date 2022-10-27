@@ -163,13 +163,10 @@ class Fisicas extends Phaser.Scene{
         });
         //CHOQUE CON PUERTA / FINAL DE NIVEL
         this.physics.add.collider(this.javier, this.puerta, () => {
-            //console.log("Llegó a puerta");
             this.gong.play();
             this.instrucciones.setAlpha(0);
             this.sound.pauseAll();
             this.scene.start("Fisicas2"); 
-            //this.end.setAlpha(1);
-            //this.fondo.setDepth(3).setAlpha(1);
         });
     }
 
