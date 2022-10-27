@@ -96,7 +96,7 @@ class Inicio extends Phaser.Scene{
         //EVENTO SÓLO PARA PLAY
         this.play.on(eventos.POINTER_DOWN, function () {
             this.sound.pauseAll();
-            this.scene.start("Bootloader");         
+            this.scene.start("Fisicas");         
         }, this);
         //EVENTO SÓLO PARA CONFIG
         this.config.on(eventos.POINTER_DOWN, function () {
