@@ -1,50 +1,50 @@
-class Bootloader extends Phaser.Scene{
+class Fisicas extends Phaser.Scene{
     constructor(){
         super({
-            key: 'Bootloader'
+            key: 'Fisicas'
         });
     }
 
     init() {
-        console.log('Escena Bootloader');
+        console.log('Escena Fisicas');
     }
     
     preload() {
         this.load.path = './assets/';
-        this.load.image(['barraArriba1', 'barraArriba2', 'barraArriba3', 'barraArriba4', 'barraPuerta', 'puerta', 'barraCF1', 'barraCF2', 'cuerda', 'torre1', 'torre2', 'torre3', 'torre4', 'torre5', 'barraElevador', 'picos', 'barraTiempo', 'escalar', 'barraDiagonal', 'escalera', 'ninja','fondo_opc1']);
+        this.load.image(['barraArriba1', 'barraArriba2', 'barraArriba3', 'barraArriba4', 'barraPuerta', 'puerta', 'barraCF1', 'barraCF2', 
+        'cuerda', 'torre1', 'torre2', 'torre3', 'torre4', 'torre5', 'barraElevador', 'picos', 'barraTiempo', 'escalar', 'barraDiagonal',
+        'escalera', 'ninja','fondo_opc1','coleccionable','end','instrucciones']);
+        this.load.audio('gong', ['./gong.mp3']);
+        this.load.audio('musicaFondo', ['./musicaFondo.mp3']);
     }
 
     create() {
-        this.fondo = this.add.image(800, 400, 'fondo_opc1').setScale(1.1).setDepth(-3).setAlpha(0.8);
+        //MÚSICA
+        this.gong = this.sound.add('gong',{loop:false});
+        this.musicaFondo = this.sound.add('musicaFondo',{loop:false});
+        this.musicaFondo.play();
+        //FONDO Y SPRITE
+        this.fondo = this.add.image(800, 395, 'fondo_opc1').setScale(1.1).setDepth(-3).setAlpha(0.8);
+        this.end = this.add.image(250, 60, 'instrucciones').setDepth(4).setScale(0.15).setDepth(2);
+        this.instrucciones = this.add.image(800, 220, 'end').setDepth(4).setScale(0.3).setAlpha(0);
         this.javier = this.physics.add.image(50, 700, 'ninja').setScale(0.1);
         this.javier.body.setSize(200, 500);
         this.javier.body.setOffset(180,0);
         this.javier.body.setMass(1);
-
-        this.barraMovible = this.physics.add.image(900,155, 'barraArriba2').setScale(0.6).refreshBody();
-        this.barraMovible.body.setAllowGravity(false);
-        this.add.tween({
-            targets: this.barraMovible,
-            x: 1200,
-            yoyo: true,
-            duration: 2000,
-            repeat: -1,
-            easy: 'Power1',
-        });
-        // this.barraArriba5.setScale(0.3)
-        // this.barraPuerta = this.add.image(1460, 230, 'barraPuerta');
-        // this.barraPuerta.setScale(0.3)
-        this.puerta = this.add.image(1460, 135, 'puerta').setScale(0.7);
+        
+        this.puerta = this.physics.add.image(1460, 135, 'puerta').setScale(0.7);
+        this.puerta.body.setAllowGravity(false);
+        this.puerta.body.setImmovable(true);
         // this.barraCF1 = this.add.image(260, 320, 'barraCF2');
         // this.barraCF1.setScale(0.3)
         // this.barraCF2 = this.add.image(865, 320, 'barraCF1');
         // this.barraCF2.setScale(0.3)
-        this.cuerda = this.add.image(500, 340, 'cuerda').setScale(0.8);
+        this.cuerda = this.add.image(500, 334, 'cuerda').setScale(0.8);
 
         var torres = this.physics.add.staticGroup();
         var barraTiempo = this.physics.add.staticGroup();
         this.barraTorre = this.physics.add.group();
-        var barrasArriba = this.physics.add.staticGroup();
+        this.barrasArriba = this.physics.add.staticGroup();
         var barrasHielo = this.physics.add.staticGroup();
         var barrasCuerda = this.physics.add.staticGroup();
         var picos = this.physics.add.staticGroup();
@@ -62,11 +62,13 @@ class Bootloader extends Phaser.Scene{
 
         this.barraTorre.create(820, 575, 'barraElevador').setDepth(-1).setScale(0.5).refreshBody();
 
-        barrasArriba.create(100,200, 'barraArriba1').setScale(0.6).refreshBody()
-        barrasArriba.create(370,150, 'barraArriba2').setScale(0.6).refreshBody()
-        barrasArriba.create(1460,200, 'barraPuerta').setScale(0.8).refreshBody()
-       // barrasArriba.create(1230,155, 'barraArriba1').setScale(0.6).refreshBody()
-
+        //barrasArriba.create(100,200, 'barraArriba1').setScale(0.6).refreshBody()
+        this.barrasArriba.create(370,150, 'barraArriba2').setScale(0.6).refreshBody();
+        this.barrasArriba.create(1460,190, 'barraPuerta').setScale(0.8).refreshBody();
+        this.barrasArriba.create(1230,155, 'barraArriba1').setScale(0.6).refreshBody().disableBody(true,true);
+        this.barrasArriba.create(1060,155, 'barraArriba1').setScale(0.6).refreshBody().disableBody(true,true);
+        this.barrasArriba.create(890,155, 'barraArriba1').setScale(0.6).refreshBody().disableBody(true,true);
+        
         barrasHielo.create(650,155, 'barraArriba2').setScale(0.6).refreshBody()
         //barrasHielo.create(1030,155, 'barraArriba2').setScale(0.6).refreshBody();
 
@@ -78,7 +80,7 @@ class Bootloader extends Phaser.Scene{
         picos.create(660, 760, 'picos').setScale(0.15).setDepth(-1).refreshBody();
         picos.create(1340, 760, 'picos').setScale(0.15).refreshBody();
         picos.create(1690, 760, 'picos').setScale(0.15).refreshBody();
-
+        
         //Colisiones con los limites del mundo
         this.javier.body.setCollideWorldBounds(true);
         this.barraTorre.children.iterate( (torreT) => {
@@ -92,12 +94,25 @@ class Bootloader extends Phaser.Scene{
         this.escalar.setScale(0.27);
         this.barraDiagonal = this.add.image(1250, 400, 'barraDiagonal').setScale(0.6);
         this.escalera = this.add.image(300, 215, 'escalera').setScale(0.8);
-
+        //COLECCIONABLE
+        this.objeto = this.physics.add.image(650,100,'coleccionable').setScale(.3);
+        this.objeto.body.setAllowGravity(false);
+        this.physics.add.overlap(this.javier, this.objeto, collectObjeto, null, this);
+        function collectObjeto (jugador, objeto)
+        {
+            objeto.disableBody(true, true);
+            console.log("aparecer barras");
+            console.log(this.barrasArriba);
+            this.barrasArriba.getChildren()[2].enableBody(false,0,0,true,true);
+            this.barrasArriba.getChildren()[3].enableBody(false,0,0,true,true);
+            this.barrasArriba.getChildren()[4].enableBody(false,0,0,true,true);
+            
+        }
         // this.obstaculo1.body.setCollideWorldBounds(true);
 
         //Teclado
         this.cursors = this.input.keyboard.createCursorKeys();
-        
+        //FÍSICAS Y COLISIONES
         this.physics.add.existing(this.escalar, true );
         // this.physics.add.existing(this.barraArriba5, true );
         this.physics.add.existing(this.escalera, true );
@@ -113,10 +128,8 @@ class Bootloader extends Phaser.Scene{
         //     this.javier.setVelocity(0);
         //     this.javier.setAcceleration(0);
         // });
-        this.physics.add.collider(this.javier, this.barraMovible, () => {
-            this.barraMovible.setVelocity(0);
-        });
         this.physics.add.collider(this.javier, torres);
+
         this.physics.add.collider(this.javier, barraTiempo, () => {
             //algo
         });
@@ -132,7 +145,7 @@ class Bootloader extends Phaser.Scene{
             this.javier.setVelocityY(0);
             this.javier.setAccelerationY(0);
         });
-        this.physics.add.collider(this.javier, barrasArriba);
+        this.physics.add.collider(this.javier, this.barrasArriba);
         this.physics.add.collider(this.javier, barrasHielo, () => {
             // this.javier.setVelocityX(0);
             // this.javier.setAccelerationX(0);
@@ -145,14 +158,24 @@ class Bootloader extends Phaser.Scene{
         });
         //Choque con picos
         this.physics.add.collider(this.javier, picos, () => {
+            this.musicaFondo.stop();
             this.scene.restart();
+        });
+        //CHOQUE CON PUERTA / FINAL DE NIVEL
+        this.physics.add.collider(this.javier, this.puerta, () => {
+            //console.log("Llegó a puerta");
+            this.gong.play();
+            this.instrucciones.setAlpha(0);
+            this.sound.pauseAll();
+            this.scene.start("Fisicas2"); 
+            //this.end.setAlpha(1);
+            //this.fondo.setDepth(3).setAlpha(1);
         });
     }
 
 
     update(time, delta) {
-        // console.log(this.escalera.body.touching);
-
+        // console.log(this.javier.body.onFloor());
         //Movimientos
         if (this.cursors.left.isDown)
         {
@@ -192,7 +215,10 @@ class Bootloader extends Phaser.Scene{
         if(this.barraTorre.getChildren()[0].y>769){
             this.barraTorre.getChildren()[0].disableBody(true, true);
         }
+
     }
+
+
 }
 
-export default Bootloader;
+export default Fisicas;
